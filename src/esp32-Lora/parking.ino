@@ -30,8 +30,8 @@ int etat2= 0;
 WiFiMulti WiFiMulti;
 HTTPClient ask;
 // TODO: user config
-const char* ssid     = "freebox_TIOJMA"; //Wifi SSID
-const char* password = "ArgenteuilTikiouine19811994."; //Wifi Password
+const char* ssid     = ""; //Wifi SSID
+const char* password = ""; //Wifi Password
 const char* host = "http://192.168.0.22/";  // host
 const int httpPort = 80;      // port
   
