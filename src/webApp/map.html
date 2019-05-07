@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Access Google Maps API in PHP</title>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="sytle.css">
+	
+	<style type="text/css">
+		.container {
+			height: 100%;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+			border: 1px solid blue;
+            
+		}
+		#data, #allData {
+			display: none;
+		}
+        .book-parking-container[_ngcontent-kwy-44]{
+  max-width:800px;
+  margin:0 auto;
+  margin-top:70px;
+}
+.location1[_ngcontent-kwy-44]{
+  border:1px solid black;
+  padding:10px;
+}
+.location1[_ngcontent-kwy-44]    > div[_ngcontent-kwy-44]{
+  height:70px;
+  width:35px;
+  border:solid 2px red;
+  display:inline-block;
+  padding:50px;
+  margin:20px;
+  cursor:pointer;
+}
+
+.location2[_ngcontent-kwy-44]{
+  border:1px solid black;
+  padding:10px;
+}
+.location2[_ngcontent-kwy-44]    > div[_ngcontent-kwy-44]{
+  height:70px;
+  width:35px;
+ /*border:solid 2px red;*/
+  display:inline-block;
+  padding:20px;
+  margin:20px;
+  cursor:pointer;
+  }
+  .inactive {
+    display: none;
+}
+
+.location3[_ngcontent-kwy-44]{
+  border:1px solid black;
+  padding:10px;
+}
+/*.location3[_ngcontent-kwy-44]    > div[_ngcontent-kwy-44]{
+  height:70px;
+  width:35px;
+  border:solid 2px red;
+  display:inline-block;
+  padding:80px;
+  margin:20px;
+  cursor:pointer;
+}*/
+.changeBg[_ngcontent-kwy-44]{
+  background-color:yellow;
+}
+.alreadyReserved[_ngcontent-kwy-44]{
+  background-color:red;
+  cursor:not-allowed !important;
+}
+.car-logo[_ngcontent-kwy-44]{
+  height:44px;
+  width:80px;
+}
+.feedback-textarea[_ngcontent-kwy-44]{
+  width:100%;
+  height:150px;
+}
+
+.location2[_ngcontent-kwy-44] > div[_ngcontent-kwy-44] {
+    height: 70px;
+    width: 35px;
+    /*background: red;*/
+    border: solid 2px black;
+    display: inline-block;
+    padding: 20px;
+    margin: 20px;
+    cursor: pointer;
+}
+.location2[_ngcontent-kwy-44] {
+    border: 1px solid black;
+    background: #e6e6e6;
+    padding: 10px;
+}
+
+.free{
+    background: green;
+}
+label {
+    color: #000;
+}
+	</style>
+</head>
+<body>
+	<!--<div class="container">
+		<center><h1>Access Google Maps API in PHP</h1></center>
+		<div class="col-sm-2">
+                <ul class="nav nav-tabs" id="myTab">
+                    <li class="active"><a id="link1" href="#office" data-toggle="tab">Tab 1</a>
+                    </li>
+                    <li><a id="link2" href="#rnd" data-toggle="tab">Tab 2</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="office">
+                         <h1>Contact 1</h1>
+                         <h4>Address 1</h4>
+                    </div>
+                    <div class="tab-pane" id="rnd">
+                         <h1>Contact 2</h1>
+                         <h4>Address 2</h4>
+                    </div>
+                </div>
+            </div>-->
+		<!--<div id="map"></div>
+		<nav class="st-menu st-effect-2" id="menu-2">
+            <h2 class="icon icon-paypal">Park-It</h2>
+            <ul>
+                <li>
+                    <a class="icon icon-location" onclick="callCurrentLocation()">
+                        <input id="pac-input" class="controls" type="text" placeholder="Enter a location" onclick="event.stopPropagation();">
+                    </a>
+                    
+                </li>
+					
+            </ul>
+            <div id="right-panel">
+                <div id="pDetails" class="inactive">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="icon icon-newspaper">Lot Name</td>
+                                <td id="lName" class="second"></td>
+                            </tr>
+                            <tr>
+                                <td class="icon icon-office">Address</td>
+                                <td id="address" class="second"></td>
+                            </tr>
+                            <tr>
+                                <td class="icon icon-phone">Phone</td>
+                                <td id="pNum" class="second"></td>
+                            </tr>
+                            <tr>
+                                <td class="icon icon-database">Total Space</td>
+                                <td id="tSpace" class="second"></td>
+                            </tr>
+                            <tr>
+                                <td class="icon icon-stack">Availability</td>
+                                <td id="aSpace" class="second"></td>
+                            </tr>
+                            <tr>
+                                <td class="single icon icon-map md-trigger md-setperspective" colspan="2" data-modal="modal-18" onclick="ParkItPage.displayIndoorMap()">INDOOR MAP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </nav>
+
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+    -->
+
+    <div id="st-container" class="st-container">
+        <div class="st-pusher">
+            <div class="st-content">
+                <div id="st-trigger-effects">
+                    <div id="map"></div>
+                    <span id="span" class="dr-icon dr-icon-menu" data-effect="st-effect-2"></span>
+                </div>
+            </div>
+        </div>
+        <nav class="st-menu st-effect-2" id="menu-2">
+            <h2 class="icon icon-paypal">Park-Here</h2>
+           
+            <ul>
+                <li>
+                    
+                        <a  id="search" class="icon icon-location">
+                            <input id="pac-input" class="controls" type="text" placeholder="Enter a location" onclick="event.stopPropagation();">
+                        </a>
+                       
+                        
+                </li>
+            </ul>
+            <div id="right-panel">
+                <div id="pDetails" class="inactive">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="icon icon-newspaper">Lot Name</td>
+                                <td id="lName" class="second"></td>
+                            </tr>
+                            <tr>
+                                <td class="icon icon-office">Address</td>
+                                <td id="address" class="second"></td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="icon icon-database">Total Space</td>
+                                <td id="tSpace" class="second"></td>
+                            </tr>
+                            <tr>
+                                <td class="icon icon-stack">Availability</td>
+                                <td id="aSpace" class="second"></td>
+                            </tr>
+                            <tr>
+                                <td class="single icon icon-map md-trigger md-setperspective" colspan="2" data-modal="modal-18" onclick="ParkItPage.displayIndoorMap()">INDOOR MAP</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="alert alert-success" role="alert" style="
+    display: none;
+">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Success!</strong> You have been signed in successfully!
+      </div>
+
+          <!-- Modal -->
+          <div class="modal fade in" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content" style="
+    border: 10px solid;
+    border-radius: 0;
+">
+                <div class="modal-header" style="
+    border: none;
+">
+<button type="button" class="close" data-dismiss="modal">×</button>
+                  <h4 class="modal-title" style="
+    font-size: 25px;
+    color: #000;
+">Reserver</h4>
+                </div>
+                <label _ngcontent-rxa-5="" for="duration" style="
+    margin-right: 30px;
+    margin-left: 30px;
+"> Select une place :</label>
+<div class="modal-body">
+                    <div _ngcontent-kwy-44="" class="location2"></div>
+            
+            
+              <form id="bookingform" _ngcontent-rxa-5="" ng-reflect-form="[object Object]" class="ng-pristine ng-invalid ng-touched">
+                
+                  
+                <div style="
+    margin: 30px;
+">
+                  <label _ngcontent-rxa-5="" for="duration" style="
+    margin-right: 30px;
+"> Select Duration :</label>
+                  <select _ngcontent-rxa-5="" formcontrolname="duration" id="duration" name="duration" ng-reflect-name="duration" class="ng-untouched ng-pristine ng-invalid" style="
+    color: #000;
+"> 
+                    <option _ngcontent-rxa-5="" value="1" ng-reflect-value="1"> 1 hour </option>
+                    <option _ngcontent-rxa-5="" value="2" ng-reflect-value="2"> 2 hours </option>
+                    <option _ngcontent-rxa-5="" value="3" ng-reflect-value="3"> 3 hours </option>
+                    <option _ngcontent-rxa-5="" value="4" ng-reflect-value="4"> 4 hours </option>
+                    <option _ngcontent-rxa-5="" value="5" ng-reflect-value="5"> 5 hours </option>
+                    </select></div>
+                
+    			<div style="
+    margin: 0px 30px;
+    margin-bottom: 0px;
+">
+                <label for="vhecileno" style="
+    margin-right: 30px;
+"> Select vhecileno:</label>
+                <input id="vhecileno" class="controls" type="text" placeholder="Enter a vhecileno" style="
+    /* box-shadow: none; */
+    padding: 5px;
+">
+    </div>
+                   <br _ngcontent-rxa-5=""><br _ngcontent-rxa-5="">
+                
+                 
+                <button id="submit" class="btn btn-primary" type="submit" style="
+    border-radius: 0;
+    padding: 10px 20px;
+    background: #48a770;
+    border-color: #48a770;
+">valider</button>
+                </form>
+            
+            
+            
+            
+            </div>
+                <div class="modal-footer" style="
+    border: navajowhite;
+">
+                  
+                </div>
+              </div>
+              
+            </div>
+          </div>
+	<!--</div>-->
+</body>
+<script 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAlTmndfmQill454vdCIX8pnhvFmjntgVc">
+
+</script>
+<script type="text/javascript" src="map.js"></script>
+</html>
+
+
+
+
+
+
+
+
+
